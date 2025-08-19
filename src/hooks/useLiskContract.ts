@@ -23,8 +23,9 @@ const LISK_CONTRACT_ABI = [
   "event PollExtended(uint256 indexed pollId, uint256 newEndTime)"
 ];
 
-// Deploy contract address on Lisk Network (replace with actual deployed address)
-const LISK_CONTRACT_ADDRESS = "0x742d35cc6634c0532925a3b8d4c9db96c4b4d8b7";
+// TODO: Deploy LiskVotingSystem.sol contract and update this address
+// This is a placeholder address - replace with your actual deployed contract address
+const LISK_CONTRACT_ADDRESS = "0x0000000000000000000000000000000000000000";
 
 export const useLiskContract = (signer: ethers.JsonRpcSigner | null) => {
   const [contract, setContract] = useState<ethers.Contract | null>(null);
@@ -117,7 +118,9 @@ export const useLiskContract = (signer: ethers.JsonRpcSigner | null) => {
       // Check if contract is deployed at the address
       const contractCode = await contract.runner.provider.getCode(LISK_CONTRACT_ADDRESS);
       if (contractCode === '0x') {
-        console.error('Contract not found at address:', LISK_CONTRACT_ADDRESS, 'on current network');
+        console.warn('⚠️ Smart contract not deployed yet!');
+        console.warn('📝 Please deploy LiskVotingSystem.sol to Lisk Network and update LISK_CONTRACT_ADDRESS');
+        console.warn('🔗 Current address:', LISK_CONTRACT_ADDRESS);
         setPolls([]);
         return;
       }
